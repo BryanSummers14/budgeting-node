@@ -19,9 +19,9 @@ exports.register = async (req, res) => {
 }
 
 exports.login = async function(req, res) {
-    let { email } = { ...req.body };
+    const { _email } = { ...req.body };
     try {
-        const _user = await User.findOne({ email: req.body.email });
+        const _user = await User.findOne({ email: _email });
         if (_user.comparePassword(req.body.password)) {
             res.status(200).json({ token: jwt.sign({ _id: _user._id }, config.secret), user: { name: _user.username }});
         } else {

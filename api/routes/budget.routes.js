@@ -7,8 +7,19 @@ module.exports = _ => {
     const budgetRouter = express.Router();
 
     budgetRouter.route('/line-item')
-        .get(BudgetController.getAllLineItems)
         .post(BudgetController.addLineItem);
+
+    budgetRouter.route('/monthly-total')
+        .get(BudgetController.monthlySpentTotal);
+
+    budgetRouter.route('/set-monthly-budget')
+        .post(BudgetController.setMonthlyBudget);
+
+    budgetRouter.route('/get-monthly-budget')
+        .get(BudgetController.getMonthlyBudget);
+
+    budgetRouter.route('/get-yearly-budget')
+        .get(BudgetController.getYearlyBudget);
 
     return budgetRouter;
 }
