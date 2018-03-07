@@ -11,5 +11,8 @@ module.exports = _ => {
     authRouter.route('/login')
         .post(_authController.login);
 
+    authRouter.route('/logout')
+        .post(_authController.logout)
+
     return authRouter;
 }

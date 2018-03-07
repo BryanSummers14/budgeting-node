@@ -38,7 +38,7 @@ app.route('/').get(function(req, res) {
 });
 
 app.use('/api/auth', authRoutes);
-app.use('/api', budgetRoutes);
+app.use('/api/budget', budgetRoutes);
 
 app.listen(port, _ => {
     console.log(`Budget app listening on: ${port}`);

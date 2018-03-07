@@ -10,12 +10,13 @@ const MonthlyBudget = require('../models/monthly-budget.model');
 exports.monthlySpentTotal = async (req, res) => {
     const _authToken = jwt.decode(req.get('Authorization'));
     try {
+        const monthlyBudget = await MonthlyBudget.findOne({ _userID: _authToken._id, month: moment().month(), year: moment().year() });
         const lineItems = await Expense.find({ _userID: _authToken._id, date: { $gt: moment().startOf('month').toISOString(), $lt: moment().endOf('month').toISOString() }});
         const allItems = Array.from(lineItems);
         const total = allItems.reduce((_prev, cur) => {
             return _prev + cur.amount;
         }, 0);
-        res.status(200).json({ total, expenses: allItems });
+        res.status(200).json({ total, expenses: allItems, monthlyBudget });
     } catch (err) {
         res.status(500).json({ ...err });
     }
