@@ -6,7 +6,7 @@ const config = require('../config');
 
 const app = express();
 
-var uri = 'mongodb://127.0.0.1/Budgetdb';
+var uri = `mongodb://${config.username}:${config.password}@ds261828.mlab.com:61828/budget-app`;
 
 mongoose.Promise = global.Promise;
 mongoose.connect(uri);
