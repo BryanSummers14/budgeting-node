@@ -13,13 +13,17 @@ module.exports = _ => {
         .get(BudgetController.monthlySpentTotal);
 
     budgetRouter.route('/set-monthly-budget')
-        .post(BudgetController.setMonthlyBudget);
+        .post(BudgetController.setMonthlyBudget)
+        .put(BudgetController.updateMonthlyBudget);
 
     budgetRouter.route('/get-monthly-budget')
         .get(BudgetController.getMonthlyBudget);
 
     budgetRouter.route('/get-yearly-budget')
         .get(BudgetController.getYearlyBudget);
+
+    budgetRouter.route('/get-yearly-totals')
+        .get(BudgetController.getYearlyTotals);
 
     return budgetRouter;
 }
