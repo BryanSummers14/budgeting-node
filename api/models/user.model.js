@@ -15,13 +15,14 @@ const userSchema = new Schema({
         type: String,
         unique: true,
         trim: true,
-        required: true
+        required: true,
+        index: true
     },
     hash_password: {
         type: String,
         required: true
     }
-});
+}, { autoIndex: false });
 
 userSchema.methods.comparePassword = function(_password) {
     return bcrypt.compareSync(_password, this.hash_password);

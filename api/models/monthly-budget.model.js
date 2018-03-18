@@ -19,16 +19,19 @@ const monthlyBudgetModel = new Schema({
     },
     _userID: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     month: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     year: {
         type: String,
-        required: true
+        required: true,
+        index: true
     }
-});
+}, { autoIndex: false });
 
 module.exports = mongoose.model('MonthlyBudget', monthlyBudgetModel);

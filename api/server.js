@@ -15,6 +15,8 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(express.static('public'))
+
 
 app.all('/*', function(req, res, next) {
     // CORS headers
@@ -34,7 +36,7 @@ const authRoutes = require('./routes/auth.routes')();
 const budgetRoutes = require('./routes/budget.routes')();
 
 app.route('/').get(function(req, res) {
-    res.json({message: 'Hello World'});
+   res.send('index.html');
 });
 
 app.use('/api/auth', authRoutes);

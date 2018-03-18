@@ -8,7 +8,8 @@ const Schema = mongoose.Schema;
 const expenseSchema = new Schema({
     _userID: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     type: {
         type: String,
@@ -23,8 +24,9 @@ const expenseSchema = new Schema({
     },
     date: {
         type: Date,
-        default: new Date().toISOString()
+        default: new Date().toISOString(),
+        index: true
     }
-});
+}, { autoIndex: false });
 
 module.exports = mongoose.model('Expense', expenseSchema);

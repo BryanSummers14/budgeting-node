@@ -8,7 +8,8 @@ const Schema = mongoose.Schema;
 const budgetSchema = new Schema({
     user: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     lineItem: {
         type: String,
@@ -18,6 +19,6 @@ const budgetSchema = new Schema({
         type: Number,
         required: true
     }
-});
+}, { autoIndex: false });
 
 module.exports = mongoose.model('Budget', budgetSchema);
