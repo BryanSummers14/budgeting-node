@@ -1,3 +1,28 @@
+// Include the cluster module
+var cluster = require('cluster');
+
+// Code to run if we're in the master process
+if (cluster.isMaster) {
+
+    // Count the machine's CPUs
+    var cpuCount = require('os').cpus().length;
+
+    // Create a worker for each CPU
+    for (var i = 0; i < cpuCount; i += 1) {
+        cluster.fork();
+    }
+
+    // Listen for terminating workers
+    cluster.on('exit', function (worker) {
+
+        // Replace the terminated workers
+        console.log('Worker ' + worker.id + ' died :(');
+        cluster.fork();
+
+    });
+
+// Code to run if we're in a worker process
+} else {
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -15,7 +40,7 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 
 app.all('/*', function(req, res, next) {
@@ -36,7 +61,7 @@ const authRoutes = require('./routes/auth.routes')();
 const budgetRoutes = require('./routes/budget.routes')();
 
 app.route('/').get(function(req, res) {
-   res.send('index.html');
+   res.sendFile('../index.html');
 });
 
 app.use('/api/auth', authRoutes);
@@ -44,4 +69,5 @@ app.use('/api/budget', budgetRoutes);
 
 app.listen(port, _ => {
     console.log(`Budget app listening on: ${port}`);
-})
+});
+}
